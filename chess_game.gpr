@@ -1,0 +1,28 @@
+project Chess_Game is
+	for Languages use ("Ada", "C");
+	for Source_Dirs  use ("Source");
+	for Object_Dir use "obj";
+	for Exec_Dir use ".";
+	for Main use ("chess.adb");
+
+	package Compiler is
+		for Default_Switches ("C")
+			use ("-O2") & ("-Wall");
+		for Default_Switches ("Ada")
+			use ("-O2", "-gnatwa", "-gnat12");
+	end Compiler;
+
+	package Binder is
+		for Switches ("Ada") use ("-shared");
+	end Binder;
+
+	package Builder is
+		for Executable ("chess.adb") use "chess";
+		for Default_Switches ("ada") use ("-s", "-j4", "-k");
+	end Builder;
+
+	package Linker is
+		for Default_Switches ("ada") use ("-s", "-Wl,--gc-sections");
+	end Linker;
+	
+end Chess_Game;
