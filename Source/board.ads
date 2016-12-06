@@ -1,5 +1,7 @@
 with Ada.Text_IO;
 with Pieces; use Pieces;
+with GNAT.Sockets; use GNAT.Sockets;
+
 package Board is
 	pragma Suppress(All_Checks);
 	
@@ -27,6 +29,9 @@ package Board is
 	procedure End_Turn;
 
 	function Is_Winner return Integer;
+
+	procedure Set_Variables(Channel : Stream_Access);
+	procedure Get_Variables(Channel : Stream_Access);
 	
 private
 	package Pieces_IO is new Ada.Text_IO.Enumeration_IO(Piece_Name);

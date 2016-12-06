@@ -1,6 +1,22 @@
 with NCurses; use NCurses;
 package body Board is
 	
+	procedure Set_Variables(Channel : Stream_Access) is
+	begin
+		Board_Type'Output(Channel, Our_Board);
+		Player_Counter'Output(Channel, Turn);
+		King_Status_Array'Output(Channel, King_Status);
+		Cordinate_Type'Output(Channel, Last_Moved);
+	end Set_Variables;
+
+	procedure Get_Variables(Channel : Stream_Access) is
+	begin
+		Our_Board := Board_Type'Input(Channel);
+		Turn := Player_Counter'Input(Channel);
+		King_Status := King_Status_Array'Input(Channel);
+		Last_Moved := Cordinate_Type'Input(Channel);
+	end Get_Variables;
+
 	procedure Reset_Board is
 	begin -- Reset_Board
 		for I of Our_Board loop

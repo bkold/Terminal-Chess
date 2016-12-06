@@ -1,12 +1,5 @@
 #include <ncurses.h>
 
-struct c_cordinate_t{
-	int x;
-	int y;
-};
-
-struct c_cordinate_t these_cordinates;
-
 void init_pair_c(int index, int color_1, int color_2){	
 	init_pair(index, color_1, color_2);
 }
@@ -35,7 +28,7 @@ void setup(){
 	mousemask (ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, &old);
 }
 
-struct c_cordinate_t *get_mouse_input(){
+unsigned char get_mouse_input(){
 	int ch = getch ();
 	if (ch == KEY_MOUSE){
 		MEVENT event;
@@ -48,14 +41,13 @@ struct c_cordinate_t *get_mouse_input(){
 			*/
 			if(event.x <= 75 && event.x >= 3){
 				if(event.y <= 33 && event.y >= 1){
-					these_cordinates.x = (event.x - 4) / 9;
-					these_cordinates.y = 7 - (event.y - 2) / 4;
-					return &these_cordinates;
+					unsigned char x = (event.x - 4) / 9;
+					unsigned char y = 7 - (event.y - 2) / 4;
+					unsigned char ret = (y << 4) | x;
+					return ret;
 				}
 			}
 		}
 	}
-	these_cordinates.x = -1;
-	these_cordinates.y = -1;
-	return &these_cordinates;
+	return 0xFF;
 }

@@ -3,12 +3,7 @@ package NCurses is
 
 	type Color is new Natural range 0..7;
 	type Color_Range is new Natural range 0..1000;
-	type C_Cordinate_Type is record
-		X : Integer;
-		Y : Integer;
-	end record;
-	type C_Cordinate_Type_Pointer is access all C_Cordinate_Type with
-		Storage_Size=>0; 
+	type Byte is mod 2**8 with Size=>8;
 
 	COLOR_BLACK : constant Color := 0;
 	COLOR_RED : constant Color := 1;
@@ -21,7 +16,7 @@ package NCurses is
 
 	procedure Start_Color_Init;
 
-	function Get_Input return C_Cordinate_Type_Pointer
+	function Get_Input return Byte
 		with Import, Convention=>C, Link_Name=>"get_mouse_input";
 	procedure Start_Color 
 		with Import, Convention=>C, Link_Name=>"start_color";
