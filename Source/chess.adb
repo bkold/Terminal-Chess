@@ -116,7 +116,9 @@ begin
 
 		Wait_For_Input : loop
 			begin
-				Get_Variables(Channel);
+				if Game_Status = Network then
+					Get_Variables(Channel);
+				end if;
 				Print_Board;
 				if Is_Winner in 1..2 then
 					Print_and_Clear("Player" & Integer'Image(Is_Winner) & " is the winner");
@@ -145,7 +147,9 @@ begin
 							Move(Player_Select_Request, Player_Move_Request);
 							End_Turn;
 							Print_Board;
-							Set_Variables(Channel);
+							if Game_Status = Network then
+								Set_Variables(Channel);
+							end if;
 							if Is_Winner in 1..2 then
 								Print_and_Clear("Player" & Integer'Image(Is_Winner) & " is the winner");
 								goto FINISH;

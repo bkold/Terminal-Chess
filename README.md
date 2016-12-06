@@ -17,8 +17,8 @@ The current flags are
 ##Examples
 
     ./chess -l
-    ./chess -h -p 9000 -i 192.168.1.53
-    ./chess -p 9000 -i 192.168.1.53
+    ./chess -nh -p 9000 -i 192.168.1.53
+    ./chess -n -p 9000 -i 192.168.1.53
 
 ##Installation
 
